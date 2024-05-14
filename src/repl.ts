@@ -35,7 +35,7 @@ function getDiffLines() {
 let nodeRepl: typeof _nodeRepl;
 function getNodeRepl() {
   if (nodeRepl === undefined) {
-    nodeRepl = require('repl');
+    nodeRepl = require('pretty-repl');
   }
   return nodeRepl;
 }
@@ -88,7 +88,7 @@ export interface ReplService {
    *
    * Example:
    *
-   *     import {start} from 'repl';
+   *     import {start} from 'pretty-repl';
    *     const replService: tsNode.ReplService = ...; // assuming you have already created a ts-node ReplService
    *     const nodeRepl = start({eval: replService.eval});
    */
@@ -356,6 +356,8 @@ export function createRepl(options: CreateReplOptions = {}) {
       terminal: (stdout as tty.WriteStream).isTTY && !parseInt(env.NODE_NO_READLINE!, 10),
       eval: nodeEval,
       useGlobal: true,
+      // @ts-expect-error language is not on ReplOptions
+      language: 'ts',
       ...optionsOverride,
     });
 

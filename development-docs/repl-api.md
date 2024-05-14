@@ -20,7 +20,7 @@ repl.setService(service);
 repl.start();
 
 // or
-const nodeRepl = require('repl').start({
+const nodeRepl = require('pretty-repl').start({
     ...options,
     eval: repl.nodeEval
 });
