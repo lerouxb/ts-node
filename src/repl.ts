@@ -95,12 +95,12 @@ export interface ReplService {
   nodeEval(code: string, context: Context, _filename: string, callback: (err: Error | null, result?: any) => any): void;
   evalAwarePartialHost: EvalAwarePartialHost;
   /** Start a node REPL */
-  start(): void;
+  start(): REPLServer;
   /**
    * Start a node REPL, evaling a string of TypeScript before it starts.
    * @deprecated
    */
-  start(code: string): void;
+  start(code: string): REPLServer;
   /** @internal */
   startInternal(opts?: ReplOptions): REPLServer;
   /** @internal */
@@ -323,7 +323,7 @@ export function createRepl(options: CreateReplOptions = {}) {
 
   // Note: `code` argument is deprecated
   function start(code?: string) {
-    startInternal({ code });
+    return startInternal({ code });
   }
 
   // Note: `code` argument is deprecated
